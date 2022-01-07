@@ -1,3 +1,6 @@
+import import scala.util.{Try, Success, Failure}
+try
+{
 import com.github.music.of.the.ainur.almaren.builder.Core.Implicit;
 import com.github.music.of.the.ainur.almaren.Almaren;
 import org.apache.spark.sql.SaveMode
@@ -24,3 +27,12 @@ match
 almaren.builder
 .sourceJdbc("jdbc:postgresql://w3.training5.modak.com/training_2021","org.postgresql.Driver","select * from mt3037.user",Some(jdbcCredentials.username), Some(jdbcCredentials.password))
 .targetJdbc("jdbc:postgresql://w3.training5.modak.com/training_2021","org.postgresql.Driver","mt3037.newtable",SaveMode.Overwrite,Some(jdbcCredentials.username), Some(jdbcCredentials.password))
+}
+match
+{
+    case Success(s)=>sys.exit(0)
+    case Failure(f)=>sys.exit(1)
+    throw f
+}
+
+
