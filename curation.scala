@@ -7,7 +7,7 @@ import com.modak.common.credential.Credential
 import org.apache.spark.sql.SaveMode
 import com.modak.common._
 
-val almaren = Almaren("Demo")
+val almaren = Almaren("Curation")
     
 val args = sc.getConf.get("spark.driver.args").split("\\s+")
 val token = sc.getConf.get("spark.nabu.token")
@@ -22,10 +22,10 @@ val ldap = CredentialResult.data match
 {
     case ldap: ldap => ldap
     case _ => throw new Exception("Currently unable avalible for other credentials Types")
-  }
+}
   
-  val username = ldap.username
-  val password = ldap.password
+val username = ldap.username
+val password = ldap.password
   
 almaren.builder
 .sourceJdbc("jdbc:postgresql://w3.training5.modak.com/training_2021","org.postgresql.Driver","select * from mt3037.user",Some(username), Some(password))
@@ -37,5 +37,3 @@ match
     case Failure(f)=>sys.exit(1)
     throw f
 }
-
-
